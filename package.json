@@ -1,0 +1,23 @@
+{
+  "name": "personal-website",
+  "version": "1.0.0",
+  "description": "A beautiful personal website for Philip Irvine",
+  "main": "index.html",
+  "homepage": "https://philipirvine.github.io/personal-website",
+  "scripts": {
+    "dev": "live-server --port=3000",
+    "build": "echo 'Build complete - static files ready for GitHub Pages'",
+    "start": "live-server --port=3000",
+    "deploy": "echo 'Ready for GitHub Pages deployment'"
+  },
+  "keywords": ["personal", "website", "portfolio", "modern", "github-pages"],
+  "author": "Philip Irvine",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/philipirvine/personal-website.git"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}

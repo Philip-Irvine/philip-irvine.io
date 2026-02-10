@@ -163,19 +163,6 @@ cards.forEach(card => {
     });
 });
 
-// Initialize skill bars with 0 width
-document.addEventListener('DOMContentLoaded', () => {
-    const skillBars = document.querySelectorAll('.skill-progress');
-    skillBars.forEach(bar => {
-        bar.style.width = '0%';
-    });
-});
-
-// Add loading animation
-window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
-});
-
 // Performance optimization: Debounce scroll events
 function debounce(func, wait) {
     let timeout;

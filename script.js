@@ -52,7 +52,7 @@ function typeText() {
 
 typeText();
 
-// Fade in animation on scroll
+// Fade in elements when they come into view
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -62,15 +62,6 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            
-            // Animate skill bars when visible
-            const skillBars = entry.target.querySelectorAll('.skill-progress');
-            skillBars.forEach(bar => {
-                const width = bar.getAttribute('data-width');
-                setTimeout(() => {
-                    bar.style.width = width;
-                }, 200);
-            });
         }
     });
 }, observerOptions);

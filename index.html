@@ -147,7 +147,8 @@
                         <img src="https://raw.githubusercontent.com/Philip-Irvine/philip-irvine.io/main/images/profile_picture.JPG" 
                              alt="Philip Irvine" 
                              class="rounded-2xl shadow-2xl w-full max-w-md mx-auto object-cover h-96"
-                             onerror="this.src='https://via.placeholder.com/400x400?text=Profile+Picture'"
+                             onerror="console.log('Image failed to load'); this.src='https://via.placeholder.com/400x400/1B4965/FFFFFF?text=Philip+Irvine'; console.log('Fallback loaded');"
+                             onload="console.log('Profile image loaded successfully');"
                              loading="lazy">
                     </div>
                     <div>

@@ -1,0 +1,747 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philip Irvine - Personal Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #1B4965 0%, #2A9D8F 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #1B4965 0%, #2A9D8F 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        
+        .nav-blur {
+            backdrop-filter: blur(10px);
+            background-color: rgba(250, 250, 250, 0.9);
+        }
+        
+        .skill-progress {
+            transition: width 1.5s ease;
+        }
+        
+        .sparkle-border {
+            position: relative;
+        }
+        
+        .sparkle-border::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: sparkle 3s infinite;
+            z-index: 1;
+        }
+        
+        .sparkle-border::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(-45deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: sparkle 3s infinite 1.5s;
+            z-index: 1;
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: translateX(-100%) translateY(-100%); }
+            50% { opacity: 1; transform: translateX(100%) translateY(100%); }
+        }
+        
+        .ai-border { border: 3px solid #2A5FD6; }
+        .healthcare-border { border: 3px solid #5AB366; }
+        .leadership-border { border: 3px solid #C56A2A; }
+    </style>
+</head>
+<body class="smooth-scroll">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 nav-blur border-b border-gray-200">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold gradient-text">PI</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-[#1B4965] transition-colors">Home</a>
+                    <a href="#about" class="text-gray-700 hover:text-[#1B4965] transition-colors">About</a>
+                    <a href="#skills" class="text-gray-700 hover:text-[#1B4965] transition-colors">Skills</a>
+                    <a href="#projects" class="text-gray-700 hover:text-[#1B4965] transition-colors">Projects</a>
+                    <a href="#contact" class="text-gray-700 hover:text-[#1B4965] transition-colors">Contact</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden">
+                    <i class="fas fa-bars text-2xl text-gray-700"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#FAFAFA] border-t border-gray-200">
+            <div class="px-6 py-4 space-y-3">
+                <a href="#home" class="block text-gray-700 hover:text-[#1B4965] transition-colors">Home</a>
+                <a href="#about" class="block text-gray-700 hover:text-[#1B4965] transition-colors">About</a>
+                <a href="#skills" class="block text-gray-700 hover:text-[#1B4965] transition-colors">Skills</a>
+                <a href="#projects" class="block text-gray-700 hover:text-[#1B4965] transition-colors">Projects</a>
+                <a href="#contact" class="block text-gray-700 hover:text-[#1B4965] transition-colors">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center hero-gradient text-white">
+        <div class="container mx-auto px-6 text-center">
+            <div class="fade-in">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                    Hi, I'm <span class="text-[#CAE9FF]">Philip Irvine</span>
+                </h1>
+                <div class="text-2xl md:text-3xl mb-8 typing-cursor" id="typing-text">
+                    I'm a passionate developer
+                </div>
+                <p class="text-xl md:text-2xl mb-12 max-w-3xl mx-auto opacity-90">
+                Applying AI engineering to improve health outcomes, optimise systems, and reveal insights that matter                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#contact" class="bg-[#FAFAFA] text-[#1B4965] px-8 py-4 rounded-full font-semibold hover:bg-gray-200 transition-colors">
+                        Get In Touch
+                    </a>
+                    <a href="#projects" class="border-2 border-[#CAE9FF] text-white px-8 py-4 rounded-full font-semibold hover:bg-[#CAE9FF] hover:text-[#1B4965] transition-all">
+                        View My Work
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-[#FAFAFA]">
+        <div class="container mx-auto px-6">
+            <div class="fade-in">
+                <h2 class="text-4xl font-bold text-center mb-16 gradient-text">About Me</h2>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <img src="images/profile_picture.jpg" 
+                             alt="Philip Irvine" 
+                             class="rounded-2xl shadow-2xl w-full max-w-md mx-auto object-cover h-96">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-4">Passionate about improving health care </h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
+                            Drawing on my nursing background, I bridge clinical expertise with AI engineering to design and 
+                            apply machine‑learning tools that turn complex health data into meaningful, actionable insights. 
+                            I build data‑driven applications that support better decisions, enhance clarity, and empower practitioners and managers.
+                        </p>
+                        <p class="text-gray-600 mb-8 leading-relaxed">
+                            When I'm not coding, you'll find me exploring new technologies, contributing to 
+                            open-source projects, or continuously learning to stay at the forefront of AI engineering.
+                        </p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-check-circle text-[#2A9D8F]"></i>
+                                <span class="text-gray-700">Problem Solver</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-check-circle text-[#2A9D8F]"></i>
+                                <span class="text-gray-700">Team Player</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-check-circle text-[#2A9D8F]"></i>
+                                <span class="text-gray-700">Fast Learner</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-check-circle text-[#2A9D8F]"></i>
+                                <span class="text-gray-700">Detail Oriented</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="fade-in">
+                <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Skills & Expertise</h2>
+                <div class="space-y-12">
+                    <!-- AI Engineering & Machine Learning -->
+                    <div class="rounded-2xl shadow-lg sparkle-border ai-border">
+                        <div class="grid md:grid-cols-3 gap-0">
+                            <div class="md:col-span-1 bg-[#3A7DFF] flex items-center justify-center rounded-l-2xl">
+                                <div class="text-center p-8">
+                                    <div class="text-5xl mb-4 text-white">
+                                        <i class="fas fa-brain"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-white">AI Engineering & Machine Learning</h3>
+                                </div>
+                            </div>
+                            <div class="md:col-span-2 p-8 bg-white rounded-r-2xl">
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-[#3A7DFF] mt-1 mr-3"></i>
+                                        <span class="text-gray-700">Building end‑to‑end ML pipelines for prediction, classification, and insight generation</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-[#3A7DFF] mt-1 mr-3"></i>
+                                        <span class="text-gray-700">Applied AI: LLM prompting, RAG pipelines, embeddings, and model fine‑tuning</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-[#3A7DFF] mt-1 mr-3"></i>
+                                        <span class="text-gray-700">Data engineering fundamentals: Python, SQL, data modelling, ETL, and workflow automation</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-[#3A7DFF] mt-1 mr-3"></i>
+                                        <span class="text-gray-700">Designing reproducible, modular solutions aligned with real‑world operational needs</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Healthcare & Clinical Insight -->
+                    <div class="rounded-2xl shadow-lg sparkle-border healthcare-border">
+                        <div class="grid md:grid-cols-3 gap-0">
+                            <div class="md:col-span-1 bg-[#6BCB77] flex items-center justify-center rounded-l-2xl">
+                                <div class="text-center p-8">
+                                    <div class="text-5xl mb-4 text-white">
+                                        <i class="fas fa-heartbeat"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-white">Healthcare & Clinical Insight</h3>
+                                </div>
+                            </div>
+                            <div class="md:col-span-2 p-8 bg-white rounded-r-2xl">
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-[#6BCB77] mt-1 mr-3"></i>
+                                        <span class="text-gray-700">Registered nurse with extensive experience across acute, community, and residential care</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-[#6BCB77] mt-1 mr-3"></i>
+                                        <span class="text-gray-700">Deep understanding of clinical workflows, risk assessment, safeguarding, and patient pathways</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-[#6BCB77] mt-1 mr-3"></i>
+                                        <span class="text-gray-700">Translating complex health data into meaningful insights for practitioners and managers</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-[#6BCB77] mt-1 mr-3"></i>
+                                        <span class="text-gray-700">Evidence‑based practice, quality improvement, and clinical audit expertise</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Operational Leadership & Systems Thinking -->
+                    <div class="rounded-2xl shadow-lg sparkle-border leadership-border">
+                        <div class="grid md:grid-cols-3 gap-0">
+                            <div class="md:col-span-1 bg-[#D97A3A] flex items-center justify-center rounded-l-2xl">
+                                <div class="text-center p-8">
+                                    <div class="text-5xl mb-4 text-white">
+                                        <i class="fas fa-cogs"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-white">Operational Leadership & Systems Thinking</h3>
+                                </div>
+                            </div>
+                            <div class="md:col-span-2 p-8 bg-white rounded-r-2xl">
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-[#D97A3A] mt-1 mr-3"></i>
+                                        <span class="text-gray-700">Leading multidisciplinary teams and managing large‑scale service operations</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-[#D97A3A] mt-1 mr-3"></i>
+                                        <span class="text-gray-700">KPI design, performance monitoring, and data‑driven decision support</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-[#D97A3A] mt-1 mr-3"></i>
+                                        <span class="text-gray-700">Process optimisation, service transformation, and change management</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-[#D97A3A] mt-1 mr-3"></i>
+                                        <span class="text-gray-700">Turning organisational challenges into structured, measurable, and solvable problems</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-[#FAFAFA]">
+        <div class="container mx-auto px-6">
+            <div class="fade-in">
+                <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Featured Projects</h2>
+                
+                <!-- Project 1 -->
+                <div class="mb-20">
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                        <div class="bg-gradient-to-r from-[#1B4965] to-[#2A9D8F] text-white p-6">
+                            <h3 class="text-2xl font-bold mb-2">Healthcare Analytics Dashboard</h3>
+                            <p class="opacity-90">Real-time patient data visualization and predictive analytics</p>
+                        </div>
+                        
+                        <div class="p-8">
+                            <!-- Key Findings -->
+                            <div class="mb-8">
+                                <h4 class="text-xl font-semibold mb-4 text-[#1B4965] flex items-center">
+                                    <i class="fas fa-lightbulb mr-3 text-[#2A9D8F]"></i>
+                                    Key Findings
+                                </h4>
+                                <div class="bg-[#FAFAFA] p-6 rounded-xl">
+                                    <ul class="space-y-3">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-[#2A9D8F] mt-1 mr-3"></i>
+                                            <span class="text-gray-700">Reduced patient readmission rates by 23% through predictive modeling</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-[#2A9D8F] mt-1 mr-3"></i>
+                                            <span class="text-gray-700">Identified key risk factors for early intervention</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-[#2A9D8F] mt-1 mr-3"></i>
+                                            <span class="text-gray-700">Improved operational efficiency by 35%</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- Key Graphs -->
+                            <div class="mb-8">
+                                <h4 class="text-xl font-semibold mb-4 text-[#1B4965] flex items-center">
+                                    <i class="fas fa-chart-line mr-3 text-[#2A9D8F]"></i>
+                                    Key Graphs
+                                </h4>
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div class="bg-[#FAFAFA] p-6 rounded-xl">
+                                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop" 
+                                             alt="Patient Trends Analysis" 
+                                             class="w-full h-48 object-cover rounded-lg mb-4">
+                                        <h5 class="font-semibold mb-2">Patient Trends Analysis</h5>
+                                        <p class="text-gray-600 text-sm">Monthly patient admission patterns with seasonal variations</p>
+                                    </div>
+                                    <div class="bg-[#FAFAFA] p-6 rounded-xl">
+                                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop" 
+                                             alt="Risk Prediction Model" 
+                                             class="w-full h-48 object-cover rounded-lg mb-4">
+                                        <h5 class="font-semibold mb-2">Risk Prediction Model</h5>
+                                        <p class="text-gray-600 text-sm">Machine learning model accuracy and feature importance</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Python Code -->
+                            <div>
+                                <h4 class="text-xl font-semibold mb-4 text-[#1B4965] flex items-center">
+                                    <i class="fas fa-code mr-3 text-[#2A9D8F]"></i>
+                                    Python Code
+                                </h4>
+                                <div class="bg-gray-900 text-gray-100 p-6 rounded-xl overflow-x-auto">
+                                    <pre class="text-sm"><code class="language-python">import pandas as pd
+import numpy as np
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+
+def predict_readmission_risk(patient_data):
+    """
+    Predict patient readmission risk using Random Forest
+    """
+    # Feature engineering
+    features = ['age', 'comorbidities', 'length_of_stay', 
+                'previous_admissions', 'medication_count']
+    
+    X = patient_data[features]
+    y = patient_data['readmitted_within_30d']
+    
+    # Split data
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+    
+    # Train model
+    model = RandomForestClassifier(n_estimators=100, random_state=42)
+    model.fit(X_train, y_train)
+    
+    # Predictions
+    predictions = model.predict_proba(X_test)[:, 1]
+    
+    return model, predictions
+
+# Example usage
+model, risk_scores = predict_readmission_risk(patient_df)
+print(f"Model Accuracy: {model.score(X_test, y_test):.3f}")</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="mb-20">
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                        <div class="bg-gradient-to-r from-[#1B4965] to-[#2A9D8F] text-white p-6">
+                            <h3 class="text-2xl font-bold mb-2">Supply Chain Optimization System</h3>
+                            <p class="opacity-90">AI-driven inventory management and demand forecasting</p>
+                        </div>
+                        
+                        <div class="p-8">
+                            <!-- Key Findings -->
+                            <div class="mb-8">
+                                <h4 class="text-xl font-semibold mb-4 text-[#1B4965] flex items-center">
+                                    <i class="fas fa-lightbulb mr-3 text-[#2A9D8F]"></i>
+                                    Key Findings
+                                </h4>
+                                <div class="bg-[#FAFAFA] p-6 rounded-xl">
+                                    <ul class="space-y-3">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-[#2A9D8F] mt-1 mr-3"></i>
+                                            <span class="text-gray-700">Reduced inventory costs by 28% through predictive ordering</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-[#2A9D8F] mt-1 mr-3"></i>
+                                            <span class="text-gray-700">Improved order fulfillment rate to 98.5%</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-[#2A9D8F] mt-1 mr-3"></i>
+                                            <span class="text-gray-700">Decreased stockouts by 67%</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- Key Graphs -->
+                            <div class="mb-8">
+                                <h4 class="text-xl font-semibold mb-4 text-[#1B4965] flex items-center">
+                                    <i class="fas fa-chart-line mr-3 text-[#2A9D8F]"></i>
+                                    Key Graphs
+                                </h4>
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div class="bg-[#FAFAFA] p-6 rounded-xl">
+                                        <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400&h=250&fit=crop" 
+                                             alt="Demand Forecasting" 
+                                             class="w-full h-48 object-cover rounded-lg mb-4">
+                                        <h5 class="font-semibold mb-2">Demand Forecasting</h5>
+                                        <p class="text-gray-600 text-sm">Time series analysis with seasonal decomposition</p>
+                                    </div>
+                                    <div class="bg-[#FAFAFA] p-6 rounded-xl">
+                                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop" 
+                                             alt="Inventory Optimization" 
+                                             class="w-full h-48 object-cover rounded-lg mb-4">
+                                        <h5 class="font-semibold mb-2">Inventory Optimization</h5>
+                                        <p class="text-gray-600 text-sm">Optimal stock levels across multiple warehouses</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Python Code -->
+                            <div>
+                                <h4 class="text-xl font-semibold mb-4 text-[#1B4965] flex items-center">
+                                    <i class="fas fa-code mr-3 text-[#2A9D8F]"></i>
+                                    Python Code
+                                </h4>
+                                <div class="bg-gray-900 text-gray-100 p-6 rounded-xl overflow-x-auto">
+                                    <pre class="text-sm"><code class="language-python">import pandas as pd
+from statsmodels.tsa.arima.model import ARIMA
+from sklearn.preprocessing import MinMaxScaler
+
+def optimize_inventory(sales_data, lead_time=7):
+    """
+    Optimize inventory levels using time series forecasting
+    """
+    # Prepare data
+    scaler = MinMaxScaler()
+    scaled_data = scaler.fit_transform(sales_data.values.reshape(-1, 1))
+    
+    # Fit ARIMA model
+    model = ARIMA(scaled_data, order=(1, 1, 1))
+    model_fit = model.fit()
+    
+    # Forecast demand
+    forecast = model_fit.forecast(steps=lead_time)
+    forecast_actual = scaler.inverse_transform(forecast.reshape(-1, 1))
+    
+    # Calculate optimal stock levels
+    safety_stock = np.std(forecast_actual) * 1.65  # 95% service level
+    reorder_point = forecast_actual.mean() + safety_stock
+    
+    return {
+        'forecast_demand': forecast_actual.flatten(),
+        'reorder_point': reorder_point,
+        'safety_stock': safety_stock
+    }
+
+# Example usage
+results = optimize_inventory(monthly_sales)
+print(f"Reorder Point: {results['reorder_point']:.0f} units")</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="mb-20">
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                        <div class="bg-gradient-to-r from-[#1B4965] to-[#2A9D8F] text-white p-6">
+                            <h3 class="text-2xl font-bold mb-2">Customer Churn Prediction Model</h3>
+                            <p class="opacity-90">Machine learning model for customer retention strategies</p>
+                        </div>
+                        
+                        <div class="p-8">
+                            <!-- Key Findings -->
+                            <div class="mb-8">
+                                <h4 class="text-xl font-semibold mb-4 text-[#1B4965] flex items-center">
+                                    <i class="fas fa-lightbulb mr-3 text-[#2A9D8F]"></i>
+                                    Key Findings
+                                </h4>
+                                <div class="bg-[#FAFAFA] p-6 rounded-xl">
+                                    <ul class="space-y-3">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-[#2A9D8F] mt-1 mr-3"></i>
+                                            <span class="text-gray-700">Achieved 92% accuracy in churn prediction</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-[#2A9D8F] mt-1 mr-3"></i>
+                                            <span class="text-gray-700">Identified top 3 churn risk factors with 85% confidence</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-[#2A9D8F] mt-1 mr-3"></i>
+                                            <span class="text-gray-700">Reduced customer churn by 31% through targeted interventions</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- Key Graphs -->
+                            <div class="mb-8">
+                                <h4 class="text-xl font-semibold mb-4 text-[#1B4965] flex items-center">
+                                    <i class="fas fa-chart-line mr-3 text-[#2A9D8F]"></i>
+                                    Key Graphs
+                                </h4>
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div class="bg-[#FAFAFA] p-6 rounded-xl">
+                                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop" 
+                                             alt="Feature Importance" 
+                                             class="w-full h-48 object-cover rounded-lg mb-4">
+                                        <h5 class="font-semibold mb-2">Feature Importance Analysis</h5>
+                                        <p class="text-gray-600 text-sm">Key predictors of customer churn behavior</p>
+                                    </div>
+                                    <div class="bg-[#FAFAFA] p-6 rounded-xl">
+                                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop" 
+                                             alt="ROC Curve" 
+                                             class="w-full h-48 object-cover rounded-lg mb-4">
+                                        <h5 class="font-semibold mb-2">Model Performance Metrics</h5>
+                                        <p class="text-gray-600 text-sm">ROC curve and confusion matrix analysis</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Python Code -->
+                            <div>
+                                <h4 class="text-xl font-semibold mb-4 text-[#1B4965] flex items-center">
+                                    <i class="fas fa-code mr-3 text-[#2A9D8F]"></i>
+                                    Python Code
+                                </h4>
+                                <div class="bg-gray-900 text-gray-100 p-6 rounded-xl overflow-x-auto">
+                                    <pre class="text-sm"><code class="language-python">import pandas as pd
+import numpy as np
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.metrics import classification_report, roc_auc_score
+from sklearn.model_selection import cross_val_score
+
+def predict_customer_churn(customer_data):
+    """
+    Predict customer churn using Gradient Boosting
+    """
+    # Feature engineering
+    features = ['tenure', 'monthly_charges', 'total_charges',
+                'contract_type', 'payment_method', 'tech_support']
+    
+    X = pd.get_dummies(customer_data[features])
+    y = customer_data['churn']
+    
+    # Handle class imbalance
+    from imblearn.over_sampling import SMOTE
+    smote = SMOTE(random_state=42)
+    X_resampled, y_resampled = smote.fit_resample(X, y)
+    
+    # Train model with cross-validation
+    model = GradientBoostingClassifier(
+        n_estimators=200,
+        learning_rate=0.05,
+        max_depth=4,
+        random_state=42
+    )
+    
+    # Evaluate with cross-validation
+    cv_scores = cross_val_score(model, X_resampled, y_resampled, cv=5)
+    model.fit(X_resampled, y_resampled)
+    
+    # Feature importance
+    feature_importance = pd.DataFrame({
+        'feature': X.columns,
+        'importance': model.feature_importances_
+    }).sort_values('importance', ascending=False)
+    
+    return model, feature_importance, cv_scores.mean()
+
+# Example usage
+model, importance, accuracy = predict_customer_churn(customer_df)
+print(f"Cross-validation accuracy: {accuracy:.3f}")
+print("Top 5 churn predictors:")
+print(importance.head())</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="fade-in">
+                <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Get In Touch</h2>
+                <div class="max-w-4xl mx-auto">
+                    <div class="grid md:grid-cols-2 gap-12">
+                        <div>
+                            <h3 class="text-2xl font-semibold mb-6">Let's Connect</h3>
+                            <p class="text-gray-600 mb-8">
+                                I'm always interested in hearing about new opportunities, exciting projects, or just having a chat about technology. Feel free to reach out!
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-[#CAE9FF] rounded-full flex items-center justify-center">
+                                        <i class="fas fa-envelope text-[#1B4965]"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold">Email</p>
+                                        <p class="text-gray-600">philipirvine@yahoo.co.uk</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-[#CAE9FF] rounded-full flex items-center justify-center">
+                                        <i class="fas fa-phone text-[#1B4965]"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold">Phone</p>
+                                        <p class="text-gray-600">+44 739333 8127 </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-[#CAE9FF] rounded-full flex items-center justify-center">
+                                        <i class="fas fa-map-marker-alt text-[#1B4965]"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold">Location</p>
+                                        <p class="text-gray-600">Stirling, scotland</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex space-x-4 mt-8">
+                                <a href="#" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-[#CAE9FF] transition-colors">
+                                    <i class="fab fa-github text-gray-700 hover:text-[#1B4965]"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-[#CAE9FF] transition-colors">
+                                    <i class="fab fa-linkedin text-gray-700 hover:text-[#1B4965]"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-[#CAE9FF] transition-colors">
+                                    <i class="fab fa-twitter text-gray-700 hover:text-[#1B4965]"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-[#CAE9FF] transition-colors">
+                                    <i class="fab fa-dribbble text-gray-700 hover:text-[#1B4965]"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div>
+                            <form id="contact-form" class="space-y-6">
+                                <div>
+                                    <label for="name" class="block text-gray-700 font-medium mb-2">Name</label>
+                                    <input type="text" id="name" name="name" required
+                                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1B4965] focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                                    <input type="email" id="email" name="email" required
+                                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1B4965] focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
+                                    <textarea id="message" name="message" rows="5" required
+                                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1B4965] focus:border-transparent"></textarea>
+                                </div>
+                                <button type="submit" 
+                                        class="w-full bg-[#1B4965] text-white py-3 rounded-lg font-semibold hover:bg-[#2A9D8F] transition-colors">
+                                    Send Message
+                                </button>
+                            </form>
+                            <div id="form-message" class="mt-4 hidden"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#3D405B] text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 Philip Irvine. All rights reserved.</p>
+            <p class="mt-2 text-gray-400">Built with passion and modern web technologies</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

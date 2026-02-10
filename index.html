@@ -68,34 +68,15 @@
             position: relative;
         }
         
+        /* Temporarily disabled sparkle animation
         .sparkle-border::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: sparkle 3s infinite;
-            z-index: 1;
+            display: none;
         }
         
         .sparkle-border::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(-45deg, transparent, rgba(255,255,255,0.2), transparent);
-            animation: sparkle 3s infinite 1.5s;
-            z-index: 1;
+            display: none;
         }
-        
-        @keyframes sparkle {
-            0%, 100% { opacity: 0; transform: translateX(-100%) translateY(-100%); }
-            50% { opacity: 1; transform: translateX(100%) translateY(100%); }
-        }
+        */
         
         .ai-border { border: 3px solid #2A5FD6; }
         .healthcare-border { border: 3px solid #5AB366; }

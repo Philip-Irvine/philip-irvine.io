@@ -539,6 +539,733 @@ print("\n🎯 ANALYSIS COMPLETE — All supported files processed.")
 
 # Additional analysis code continues with country-specific visualizations, outlier detection, and comprehensive statistical analysis...
 
+# ==============================================================
+# 🧭 Collect column-level summary across all files (enhanced)
+# ==============================================================
+
+all_columns_summary = []  # Stores column summaries from all files
+
+# --------------------------------------------------------------
+# Loop through all files
+# --------------------------------------------------------------
+for file in os.listdir(data_folder):
+    file_path = os.path.join(data_folder, file)
+
+    # Only process supported file types
+    if not (file.endswith(".csv") or file.endswith(".xlsx") or file.endswith(".json")):
+        continue
+
+    print(f"\n{'='*90}\n📂 ANALYSING FILE: {file}\n{'='*90}")
+
+    # Load dataset
+    try:
+        df = load_dataset(file_path)
+    except Exception as e:
+        print(f"❌ Error loading {file}: {e}")
+        continue
+
+    # Convert list-like columns to strings
+    for col in df.select_dtypes(include='object').columns:
+        if df[col].apply(lambda x: isinstance(x, list)).any():
+            df[col] = df[col].apply(lambda x: ", ".join(map(str, x)) if isinstance(x, list) else x)
+
+    # ----------------------------------------------------------
+    # Column summary table with example values
+    # ----------------------------------------------------------
+    summary_rows = []
+    for col in df.columns:
+        example_val = df[col].dropna().astype(str).iloc[0][:15] if df[col].dropna().shape[0] > 0 else ""
+        summary_rows.append({
+            'File Name': file,
+            'Variable Name': col,
+            'Data Type': str(df[col].dtype),
+            'Observations': len(df),
+            'Missing Values': df[col].isnull().sum(),
+            'Non-Missing Values': df[col].notnull().sum(),
+            '% Missing': round(df[col].isnull().mean() * 100, 2),
+            'Example Value (first 15 chars)': example_val
+        })
+
+    col_summary = pd.DataFrame(summary_rows)
+    all_columns_summary.append(col_summary)
+
+    # (Continue with cleaning, profiling, etc...)
+
+# ==============================================================
+# 🔹 After all files are processed, combine and save summary
+# ==============================================================
+summary_df = pd.concat(all_columns_summary, ignore_index=True)
+summary_df = summary_df.sort_values(by='% Missing', ascending=False)
+
+# Export to CSV
+summary_csv_file = os.path.join(data_folder, "all_files_column_summary.csv")
+summary_df.to_csv(summary_csv_file, index=False)
+
+print(f"\n💾 Column summary for all files saved as: {summary_csv_file}")
+print("\n📊 Top 20 variables by % Missing:\n")
+print(summary_df.head(20))
+
+# Define the file path
+file_path = r"C:\Users\Philip\Desktop\foundations for drug discovery\all_weekly_excess_deaths.csv"
+
+# Load the CSV into a DataFrame
+df = pd.read_csv(file_path)
+
+# Inspect the first few rows
+print(df.head())
+
+# Define the file path
+file_path = r"C:\Users\Philip\Desktop\foundations for drug discovery\all_weekly_excess_deaths.csv"
+
+# Load the CSV into a DataFrame
+df = pd.read_csv(file_path)
+
+# Inspect the first few rows
+print(df.head())
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load dataset and parse dates
+df = pd.read_csv(
+    r"C:\Users\Philip\Desktop\foundations for drug discovery\all_weekly_excess_deaths.csv",
+    parse_dates=['start_date']
+)
+
+# Sort by date to ensure proper ordering
+df = df.sort_values('start_date')
+
+# Group by start_date and sum across all countries
+worldwide = df.groupby('start_date', as_index=False)['covid_deaths'].sum()
+
+# Plot
+plt.figure(figsize=(10,5))
+plt.plot(worldwide['start_date'], worldwide['covid_deaths'], color='blue', label='Weekly COVID Deaths')
+plt.title("Worldwide Reported Weekly COVID Deaths")
+plt.xlabel("Start Date")
+plt.ylabel("COVID Deaths")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+
+# Export as PNG
+plt.savefig(r"C:\Users\Philip\Desktop\foundations for drug discovery\worldwide_covid_deaths.png")
+plt.show()
+# verified in R
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load dataset and parse dates
+df = pd.read_csv(r"C:\Users\Philip\Desktop\foundations for drug discovery\all_weekly_excess_deaths.csv", 
+                 parse_dates=['start_date'])
+
+# Sort by date to ensure proper ordering
+df = df.sort_values('start_date')
+
+# Plot
+plt.figure(figsize=(10,5))
+plt.plot(df['start_date'], df['covid_deaths_per_100k'], color='blue', label=' Reported Weekly COVID Deaths')
+plt.title("Worldwide reported Weekly COVID-19 Deaths per 100k")
+plt.xlabel("Start Date")
+plt.ylabel("COVID Deaths")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.savefig(r"C:\Users\Philip\Desktop\foundations for drug discovery\Worldwide reported Weekly COVID-19 Deaths per 100k.png")
+plt.show() 
+#verified in R
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load dataset and parse dates
+df = pd.read_csv(r"C:\Users\Philip\Desktop\foundations for drug discovery\all_weekly_excess_deaths.csv", 
+                 parse_dates=['start_date'])
+
+# Sort by date to ensure proper ordering
+df = df.sort_values('start_date')
+
+# Plot
+plt.figure(figsize=(10,5))
+plt.plot(df['start_date'], df['excess_deaths_per_100k'], color='blue', label=' Reported Weekly excess Deaths')
+plt.title("Worldwide reported Weekly excess_deaths_per_100k")
+plt.xlabel("Start Date")
+plt.ylabel("COVID Deaths")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.savefig(r"C:\Users\Philip\Desktop\foundations for drug discovery\Worldwide reported Weekly excess_deaths_per_100k.png")
+plt.show()
+# SHAPE OF GRAPH VERIFIED IN STUDIO r
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load dataset and parse dates
+df = pd.read_csv(r"C:\Users\Philip\Desktop\foundations for drug discovery\all_weekly_excess_deaths.csv", 
+                 parse_dates=['start_date'])
+
+# Filter for Britain only
+df_britain = df[df['country'] == 'Britain'].sort_values('start_date')
+
+# Plot
+plt.figure(figsize=(10,5))
+plt.plot(df_britain['start_date'], df_britain['covid_deaths'], color='red', label='Weekly COVID Deaths (Britain)')
+plt.title("Reported Weekly COVID-19 Deaths in Britain")
+plt.xlabel("Start Date")
+plt.ylabel("COVID Deaths")
+plt.ylim(0, 9000)  # Set y-axis scale
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.savefig(r"C:\Users\Philip\Desktop\foundations for drug discovery\Reported Weekly COVID Deaths in Britain.png")
+plt.show() 
+# SHAPE OF GRAPH VERIFIED IN STUDIO r
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load dataset and parse dates
+df = pd.read_csv(r"C:\Users\Philip\Desktop\foundations for drug discovery\all_weekly_excess_deaths.csv", 
+                 parse_dates=['start_date'])
+
+# Filter for Britain only
+df_france = df[df['country'] == 'France'].sort_values('start_date')
+
+# Plot
+plt.figure(figsize=(10,5))
+plt.plot(df_france['start_date'], df_france['covid_deaths'], color='green', label='Weekly COVID Deaths (France)')
+plt.title("Reported Weekly COVID-19 Deaths in France")
+plt.xlabel("Start Date")
+plt.ylabel("COVID Deaths")
+plt.ylim(0, 9000)  # Set y-axis scale
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.savefig(r"C:\Users\Philip\Desktop\foundations for drug discovery\Reported Weekly COVID Deaths in France.png")
+plt.show() 
+# SHAPE OF GRAPH VERIFIED IN STUDIO r
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load dataset and parse dates
+df = pd.read_csv(r"C:\Users\Philip\Desktop\foundations for drug discovery\all_weekly_excess_deaths.csv", 
+                 parse_dates=['start_date'])
+
+# Filter for Italy only
+df_italy = df[df['country'] == 'Italy'].sort_values('start_date')
+
+# Plot
+plt.figure(figsize=(10,5))
+plt.plot(df_italy['start_date'], df_italy['covid_deaths'], color='blue', label='Weekly COVID Deaths (Italy)')
+plt.title("Reported Weekly COVID-19 Deaths in Italy")
+plt.xlabel("Start Date")
+plt.ylabel("COVID Deaths")
+plt.ylim(0, 9000)  # Set y-axis scale
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.savefig(r"C:\Users\Philip\Desktop\foundations for drug discovery\Reported Weekly COVID Deaths in Italy.png")
+plt.show() 
+# SHAPE OF GRAPH VERIFIED IN STUDIO r
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load dataset and parse dates
+df = pd.read_csv(r"C:\Users\Philip\Desktop\foundations for drug discovery\all_weekly_excess_deaths.csv", 
+                 parse_dates=['start_date'])
+
+# Filter for Italy only
+df_australia = df[df['country'] == 'Australia'].sort_values('start_date')
+
+# Plot
+plt.figure(figsize=(10,5))
+plt.plot(df_australia['start_date'], df_australia['covid_deaths'], color='gold', label='Weekly COVID Deaths (Australia)')
+plt.title("Reported Weekly COVID-19 Deaths in Australia")
+plt.xlabel("Start Date")
+plt.ylabel("COVID Deaths")
+plt.ylim(0, 9000)  # Set y-axis scale
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.savefig(r"C:\Users\Philip\Desktop\foundations for drug discovery\Reported Weekly COVID Deaths in Australia.png")
+plt.show() 
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# --- Load dataset ---
+df = pd.read_csv(
+    r"C:\Users\Philip\Desktop\foundations for drug discovery\all_weekly_excess_deaths.csv",
+    parse_dates=['start_date']
+)
+
+# --- Filter for selected countries ---
+countries = ["Australia", "New Zealand"]
+df_subset2 = df[df['country'].isin(countries)].sort_values('start_date')
+
+# --- Plot time-series for each country ---
+plt.figure(figsize=(12,6))
+for country in countries:
+    subset2 = df_subset2[df_subset2['country'] == country]
+    plt.plot(subset2['start_date'], subset2['covid_deaths_per_100k'], label=country)
+
+plt.title("Reported Weekly COVID-19 Deaths per 100k (Australia, New Zealand)")
+plt.xlabel("Start Date")
+plt.ylabel("COVID Deaths per 100k")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.savefig(r"C:\Users\Philip\Desktop\foundations for drug discovery\Reported Weekly COVID Deaths in 2 countries.png")
+plt.show()
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# --- Load dataset ---
+df = pd.read_csv(
+    r"C:\Users\Philip\Desktop\foundations for drug discovery\all_weekly_excess_deaths.csv",
+    parse_dates=['start_date']
+)
+
+# --- Filter for selected countries ---
+countries = ["Britain", "France", "Italy", "New Zealand"]
+df_subset = df[df['country'].isin(countries)].sort_values('start_date')
+
+# --- Plot time-series for each country ---
+plt.figure(figsize=(12,6))
+for country in countries:
+    subset = df_subset[df_subset['country'] == country]
+    plt.plot(subset['start_date'], subset['covid_deaths_per_100k'], label=country)
+
+plt.title("Reported Weekly COVID-19 Deaths per 100k (Britain, France, Italy, New Zealand)")
+plt.xlabel("Start Date")
+plt.ylabel("COVID Deaths per 100k")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.savefig(r"C:\Users\Philip\Desktop\foundations for drug discovery\Reported Weekly COVID Deaths in 4 countries.png")
+plt.show()
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load dataset and parse dates
+df = pd.read_csv(
+    r"C:\Users\Philip\Desktop\foundations for drug discovery\all_weekly_excess_deaths.csv",
+    parse_dates=['start_date']
+)
+
+# Group by country and sum covid_deaths_per_100k
+country_totals = df.groupby('country', as_index=False)['covid_deaths_per_100k'].sum()
+
+# Sort for clarity
+country_totals = country_totals.sort_values('covid_deaths_per_100k', ascending=False)
+
+# Plot as bar chart
+plt.figure(figsize=(12,6))
+plt.bar(country_totals['country'], country_totals['covid_deaths_per_100k'], color='steelblue')
+plt.xticks(rotation=90)
+plt.title("Total reported COVID-19 Deaths per 100k by Country")
+plt.xlabel("Country")
+plt.ylabel("Total COVID Deaths per 100k")
+plt.tight_layout()
+
+# Export as PNG
+plt.savefig(r"C:\Users\Philip\Desktop\foundations for drug discovery\Total_COVID_Deaths_per100k_by_Country.png")
+plt.show()
+#verified in R
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load dataset and parse dates
+df = pd.read_csv(
+    r"C:\Users\Philip\Desktop\foundations for drug discovery\all_weekly_excess_deaths.csv",
+    parse_dates=['start_date']
+)
+
+# Group by country and sum excess_deaths_per_100k
+country_totals = df.groupby('country', as_index=False)['excess_deaths_per_100k'].sum()
+
+# Sort for clarity
+country_totals = country_totals.sort_values('excess_deaths_per_100k', ascending=False)
+
+# Plot as bar chart
+plt.figure(figsize=(12,6))
+plt.bar(country_totals['country'], country_totals['excess_deaths_per_100k'], color='darkorange')
+plt.xticks(rotation=90)
+plt.title("Total Excess Deaths per 100k by Country")
+plt.xlabel("Country")
+plt.ylabel("Total Excess Deaths per 100k")
+plt.tight_layout()
+
+# Export as PNG
+plt.savefig(r"C:\Users\Philip\Desktop\foundations for drug discovery\Total_Excess_Deaths_per100k_by_Country.png")
+plt.show()
+#verified in R
+
+import pandas as pd
+import matplotlib.pyplot as plt
+#using Z scores >3 calcuulating countries that were outliers for excess deaths and covid deaths
+df = pd.read_csv(
+    r"C:\Users\Philip\Desktop\foundations for drug discovery\all_weekly_excess_deaths.csv",
+    parse_dates=['start_date']
+)
+
+# Calculate z-scores per country
+df['excess_z'] = df.groupby('country')['excess_deaths_per_100k'].transform(
+    lambda x: (x - x.mean()) / x.std()
+)
+df['excess_outlier'] = df['excess_z'].abs() > 3
+
+df['covid_z'] = df.groupby('country')['covid_deaths_per_100k'].transform(
+    lambda x: (x - x.mean()) / x.std()
+)
+df['covid_outlier'] = df['covid_z'].abs() > 3
+
+# Pick a country that definitely exists in your dataset
+print(df['country'].unique())  # list available countries
+country = "Australia"     # replace with one from the list
+
+subset = df[df['country'] == country]
+
+plt.figure(figsize=(10,5))
+plt.scatter(subset['start_date'], subset['excess_deaths_per_100k'],
+            c=subset['excess_outlier'].map({True:'red', False:'blue'}),
+            label='Excess Deaths per 100k')
+plt.scatter(subset['start_date'], subset['covid_deaths_per_100k'],
+            c=subset['covid_outlier'].map({True:'orange', False:'green'}),
+            label='COVID Deaths per 100k', marker='x')
+plt.title(f"Outlier Detection for {country}")
+plt.xlabel("Week")
+plt.ylabel("Deaths per 100k")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+# - Compute total excess deaths per 100k per country (sum across weeks).
+# Calculate the global mean and standard deviation of those totals.
+#- Compute a z‑score for each country relative to the global distribution.
+#- Flag countries with |z|>3 as outliers.
+import pandas as pd
+
+# Load dataset
+df = pd.read_csv(
+    r"C:\Users\Philip\Desktop\foundations for drug discovery\all_weekly_excess_deaths.csv",
+    parse_dates=['start_date']
+)
+
+# Step 1: Total excess deaths per 100k by country
+country_totals = df.groupby('country', as_index=False)['excess_deaths_per_100k'].sum()
+
+# Step 2: Global mean and std
+mean_val = country_totals['excess_deaths_per_100k'].mean()
+std_val = country_totals['excess_deaths_per_100k'].std()
+
+# Step 3: Compute z-scores
+country_totals['z_score'] = (country_totals['excess_deaths_per_100k'] - mean_val) / std_val
+
+# Step 4: Flag outliers (>3 std devs from mean)
+outliers = country_totals[country_totals['z_score'].abs() > 3]
+
+print("Outlier countries based on total excess deaths per 100k (>|3| z-score):")
+print(outliers.sort_values('z_score', ascending=False))
+#verified in R
+
+
+import pandas as pd
+
+# Load dataset
+df = pd.read_csv(
+    r"C:\Users\Philip\Desktop\foundations for drug discovery\all_weekly_excess_deaths.csv",
+    parse_dates=['start_date']
+)
+
+# Step 1: Total COVID deaths per 100k by country
+country_totals = df.groupby('country', as_index=False)['covid_deaths_per_100k'].sum()
+
+# Step 2: Global mean and std
+mean_val = country_totals['covid_deaths_per_100k'].mean()
+std_val = country_totals['covid_deaths_per_100k'].std()
+
+# Step 3: Compute z-scores
+country_totals['z_score'] = (country_totals['covid_deaths_per_100k'] - mean_val) / std_val
+
+# Step 4: Flag outliers (>3 std devs from mean)
+outliers = country_totals[country_totals['z_score'].abs() > 3]
+
+print("Outlier countries based on total COVID deaths per 100k (>|3| z-score):")
+print(outliers.sort_values('z_score', ascending=False))
+#verified in R
+#Mortality data (COVID deaths, excess deaths) has characteristics that make the >3 SD rule less rational if used alone:
+#- Non‑normal distribution: Mortality rates vary widely across countries due to demographics, healthcare systems, reporting practices, and pandemic waves. The distribution is often skewed, not bell‑shaped.
+#- Structural differences: A country with older populations or weaker health systems may naturally have higher totals — not necessarily “outliers” in the statistical sense.
+#- Reporting artifacts: Some countries had delayed or lumped reporting, creating artificial spikes that look like outliers but are administrative.
+#- Context matters: A country with very low deaths could also be flagged as an outlier, but that might reflect successful interventions rather than data error
+
+
+
+#IQR‑based outlier detection for your mortality data in both Python and RStudio. 
+#This method is more robust than the >3 SD rule because it doesn’t assume normality and handles skewed distributions better.
+
+import pandas as pd
+
+# Load dataset
+df = pd.read_csv(
+    r"C:\Users\Philip\Desktop\foundations for drug discovery\all_weekly_excess_deaths.csv",
+    parse_dates=['start_date']
+)
+
+# --- Excess deaths per 100k ---
+excess_totals = df.groupby('country', as_index=False)['excess_deaths_per_100k'].sum()
+
+Q1 = excess_totals['excess_deaths_per_100k'].quantile(0.25)
+Q3 = excess_totals['excess_deaths_per_100k'].quantile(0.75)
+IQR = Q3 - Q1
+
+# Flag outliers
+excess_totals['outlier_flag'] = (
+    (excess_totals['excess_deaths_per_100k'] < Q1 - 1.5*IQR) |
+    (excess_totals['excess_deaths_per_100k'] > Q3 + 1.5*IQR)
+)
+
+excess_outliers = excess_totals[excess_totals['outlier_flag']]
+
+print("Outlier countries based on total excess deaths per 100k (IQR method):")
+print(excess_outliers.sort_values('excess_deaths_per_100k', ascending=False))
+
+
+# --- COVID deaths per 100k ---
+covid_totals = df.groupby('country', as_index=False)['covid_deaths_per_100k'].sum()
+
+Q1 = covid_totals['covid_deaths_per_100k'].quantile(0.25)
+Q3 = covid_totals['covid_deaths_per_100k'].quantile(0.75)
+IQR = Q3 - Q1
+
+covid_totals['outlier_flag'] = (
+    (covid_totals['covid_deaths_per_100k'] < Q1 - 1.5*IQR) |
+    (covid_totals['covid_deaths_per_100k'] > Q3 + 1.5*IQR)
+)
+
+covid_outliers = covid_totals[covid_totals['outlier_flag']]
+
+print("Outlier countries based on total COVID deaths per 100k (IQR method):")
+print(covid_outliers.sort_values('covid_deaths_per_100k', ascending=False))
+#verified in R
+
+
+#Excess vs COVID ratio outlier detection methodology is so powerful, especially for portfolio and career applications:
+
+#📐 Methodological Strengths
+#- Simple but rigorous metric:
+#- The ratio \frac{\mathrm{Excess\  deaths\  per\  100k}}{\mathrm{COVID\  deaths\  per\  100k}} is intuitive yet revealing.
+#- It directly compares observed COVID mortality to broader excess mortality, exposing discrepancies in reporting or collateral effects.
+#- Statistical robustness:
+#- Using z‑scores standardizes the ratio across countries, making results comparable regardless of scale.
+#- Outlier detection with |z|>3 is a well‑established statistical threshold, giving credibility to your findings.
+#- Dual perspectives:
+#- Positive outliers: Excess >> COVID → possible under‑reporting of COVID deaths or indirect pandemic impacts.
+#- Negative outliers: COVID >> Excess → possible over‑attribution of deaths to COVID or strong mitigation reducing other causes.
+
+#🌍 Epidemiological & Policy Insights
+#- Reveals hidden dynamics: Outliers highlight countries where mortality patterns diverge from global norms.
+#- Contextual interpretation: For example, New Zealand’s negative excess mortality reflects strict interventions reducing non‑COVID deaths.
+#- Policy evaluation: Helps assess whether interventions led to collateral benefits or distortions in reporting.
+
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# --- Load dataset ---
+df = pd.read_csv(
+    r"C:\Users\Philip\Desktop\foundations for drug discovery\all_weekly_excess_deaths.csv",
+    parse_dates=['start_date']
+)
+
+# --- Step 1: Aggregate totals per country ---
+totals = df.groupby('country', as_index=False).agg({
+    'excess_deaths_per_100k': 'sum',
+    'covid_deaths_per_100k': 'sum'
+})
+
+# --- Step 2: Compute ratio ---
+totals['ratio'] = totals['excess_deaths_per_100k'] / totals['covid_deaths_per_100k']
+
+# --- Step 3: Compute z-scores ---
+mean_val = totals['ratio'].mean()
+std_val = totals['ratio'].std()
+totals['z_score'] = (totals['ratio'] - mean_val) / std_val
+
+# --- Step 4: Flag outliers (|z| > 3) ---
+totals['outlier_flag'] = totals['z_score'].abs() > 3
+
+# --- Step 5: Print outliers ---
+outliers = totals[totals['outlier_flag']]
+print("Outlier countries based on Excess vs COVID ratio (>|3| z-score):")
+print(outliers.sort_values('z_score', ascending=False))
+
+# --- Step 6a: Scatterplot (Excess vs COVID deaths) ---
+plt.figure(figsize=(8,6))
+plt.scatter(totals['covid_deaths_per_100k'], totals['excess_deaths_per_100k'],
+            c=totals['outlier_flag'].map({True:'red', False:'blue'}))
+plt.plot([0, totals['covid_deaths_per_100k'].max()],
+         [0, totals['covid_deaths_per_100k'].max()],
+         'k--', label='y=x (Excess=COVID)')
+for _, row in outliers.iterrows():
+    plt.text(row['covid_deaths_per_100k'], row['excess_deaths_per_100k'],
+             row['country'], fontsize=8, ha='right')
+plt.xlabel("COVID deaths per 100k")
+plt.ylabel("Excess deaths per 100k")
+plt.title("Excess vs COVID Deaths per 100k (Outliers Highlighted)")
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+# --- Step 6b: Scatterplot (Ratio vs Z-score) ---
+plt.figure(figsize=(8,6))
+plt.scatter(totals['ratio'], totals['z_score'],
+            c=totals['outlier_flag'].map({True:'red', False:'blue'}))
+for _, row in outliers.iterrows():
+    plt.text(row['ratio'], row['z_score'], row['country'], fontsize=8, ha='right')
+plt.axhline(3, color='gray', linestyle='--')
+plt.axhline(-3, color='gray', linestyle='--')
+plt.xlabel("Excess/COVID Ratio")
+plt.ylabel("Z-score")
+plt.title("Outlier Detection in Excess vs COVID Ratio")
+plt.tight_layout()
+plt.show()
+
+# --- Step 7: Export outliers to CSV (optional) ---
+outliers.to_csv("outlier_countries.csv", index=False)
+
+
+#Why New Zealand is an Outlier
+#- Excess deaths per 100k: –22.5
+#→ Negative excess mortality means fewer deaths than expected compared to baseline.
+#- COVID deaths per 100k: 23.3
+#- Ratio (Excess/COVID): –0.96
+#→ Suggests that excess deaths were lower than reported COVID deaths.
+#- Z‑score: –3.29
+#→ More than 3 standard deviations below the mean, hence flagged as an outlier.
+
+#🌍 Epidemiological Context
+#- Strict interventions: New Zealand’s early lockdowns, border closures, and strong public health measures reduced deaths from other causes (e.g., flu, accidents).
+#- Mortality displacement: Fewer non‑COVID deaths during lockdowns contributed to negative excess mortality.
+#- Reporting accuracy: COVID deaths were tracked, but the excess mortality signal diverged sharply from global averages.
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# --- Load dataset ---
+df = pd.read_csv(
+    r"C:\Users\Philip\Desktop\foundations for drug discovery\all_weekly_excess_deaths.csv",
+    parse_dates=['start_date']
+)
+
+# --- Step 1: Aggregate weekly totals per country ---
+# (You can filter to specific countries later)
+weekly = df.groupby(['country', 'start_date'], as_index=False).agg({
+    'excess_deaths_per_100k': 'sum',
+    'covid_deaths_per_100k': 'sum'
+})
+
+# --- Step 2: Example: plot for one country (e.g., New Zealand) ---
+country = "New Zealand"
+subset = weekly[weekly['country'] == country]
+
+plt.figure(figsize=(10,6))
+plt.plot(subset['start_date'], subset['excess_deaths_per_100k'],
+         label="Excess deaths per 100k", color="blue")
+plt.plot(subset['start_date'], subset['covid_deaths_per_100k'],
+         label="COVID deaths per 100k", color="red")
+
+plt.axhline(0, color="black", linewidth=0.8)
+plt.title(f"Weekly Excess vs COVID Deaths in {country}")
+plt.xlabel("Date")
+plt.ylabel("Deaths per 100k")
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+# --- Step 3: Multi-country comparison (optional) ---
+# Choose a few countries to compare
+countries_to_plot = ["New Zealand", "United Kingdom", "United States"]
+plt.figure(figsize=(12,7))
+for c in countries_to_plot:
+    subset = weekly[weekly['country'] == c]
+    plt.plot(subset['start_date'], subset['excess_deaths_per_100k'],
+             label=f"{c} Excess", linestyle="--")
+    plt.plot(subset['start_date'], subset['covid_deaths_per_100k'],
+             label=f"{c} COVID")
+
+plt.axhline(0, color="black", linewidth=0.8)
+plt.title("Weekly Excess vs COVID Deaths (Selected Countries)")
+plt.xlabel("Date")
+plt.ylabel("Deaths per 100k")
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Weekly ratios per country
+df['ratio'] = df['excess_deaths_per_100k'] / df['covid_deaths_per_100k']
+
+plt.figure(figsize=(12,6))
+sns.boxplot(x='country', y='ratio', data=df)
+plt.xticks(rotation=90)
+plt.title("Distribution of Excess/COVID Ratios by Country")
+plt.ylabel("Excess/COVID Ratio")
+plt.tight_layout()
+plt.show()
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# --- Load dataset ---
+df = pd.read_csv(
+    r"C:\Users\Philip\Desktop\foundations for drug discovery\all_weekly_excess_deaths.csv",
+    parse_dates=['start_date']
+)
+
+# --- Filter for New Zealand ---
+nz = df[df['country'] == "New Zealand"]
+
+# --- Reshape data for side-by-side boxplots ---
+nz_melted = nz.melt(
+    id_vars=['start_date'],
+    value_vars=['excess_deaths_per_100k', 'covid_deaths_per_100k'],
+    var_name='Death_Type',
+    value_name='Deaths_per_100k'
+)
+
+# --- Plot side-by-side boxplots ---
+plt.figure(figsize=(8,6))
+sns.boxplot(x='Death_Type', y='Deaths_per_100k', data=nz_melted, palette=['blue','red'])
+
+plt.title("New Zealand: Distribution of Excess vs COVID Deaths per 100k")
+plt.xlabel("")
+plt.ylabel("Deaths per 100k")
+plt.tight_layout()
+plt.savefig(r"C:\Users\Philip\Desktop\foundations for drug discovery\Boxplotnewzealand excessvsrationcoviddeaths.png")
+plt.show()
+
 </code></pre>
                                 </div>
                             </div>

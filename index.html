@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,17 +67,61 @@
         
         .sparkle-border {
             position: relative;
+            background: linear-gradient(45deg, 
+                rgba(192, 192, 192, 0.1) 0%, 
+                rgba(192, 192, 192, 0.05) 50%, 
+                rgba(192, 192, 192, 0.1) 100%);
+            animation: silverFade 4s ease-in-out infinite;
         }
         
-        /* Temporarily disabled sparkle animation
         .sparkle-border::before {
-            display: none;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(192, 192, 192, 0.3) 25%, 
+                transparent 50%, 
+                rgba(192, 192, 192, 0.3) 75%, 
+                transparent 100%);
+            animation: silverShimmer 3s linear infinite;
+            z-index: 1;
         }
         
-        .sparkle-border::after {
-            display: none;
+        @keyframes silverFade {
+            0%, 100% { 
+                background: linear-gradient(45deg, 
+                    rgba(58, 125, 255, 0.1) 0%, 
+                    rgba(58, 125, 255, 0.05) 50%, 
+                    rgba(58, 125, 255, 0.1) 100%);
+            }
+            25% { 
+                background: linear-gradient(45deg, 
+                    rgba(107, 203, 119, 0.1) 0%, 
+                    rgba(107, 203, 119, 0.05) 50%, 
+                    rgba(107, 203, 119, 0.1) 100%);
+            }
+            50% { 
+                background: linear-gradient(45deg, 
+                    rgba(217, 122, 58, 0.1) 0%, 
+                    rgba(217, 122, 58, 0.05) 50%, 
+                    rgba(217, 122, 58, 0.1) 100%);
+            }
+            75% { 
+                background: linear-gradient(45deg, 
+                    rgba(58, 125, 255, 0.1) 0%, 
+                    rgba(58, 125, 255, 0.05) 50%, 
+                    rgba(58, 125, 255, 0.1) 100%);
+            }
         }
-        */
+        
+        @keyframes silverShimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
         
         .ai-border { border: 3px solid #2A5FD6; }
         .healthcare-border { border: 3px solid #5AB366; }

@@ -384,8 +384,161 @@
                                     Python Code
                                 </h4>
                                 <div class="bg-gray-900 text-gray-100 p-6 rounded-xl overflow-x-auto max-h-96">
-                                    <pre class="text-sm"><code class="language-python">
-                                        
+                                    <pre class="text-sm"><code class="language-python">#!/usr/bin/env python
+# coding: utf-8
+# In[2]:
+get_ipython().system('pip install Kagglehub')
+import kagglehub
+# Download latest version
+path = kagglehub.dataset_download("dhruvildave/covid19-deaths-dataset")
+print("Path to dataset files:", path)
+# In[ ]:
+import pandas as pd
+# In[23]:
+# ==============================================================
+# 🧭 ROBUST MULTI-FILE DATA ANALYSIS WITH JSON & LIST HANDLING
+# ==============================================================
+import os
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import webbrowser
+from ydata_profiling import ProfileReport
+# --------------------------------------------------------------
+# 1️⃣ Define your data folder
+# --------------------------------------------------------------
+data_folder = r"C:\Users\Philip\Desktop\foundations for drug discovery"  # Folder containing CSV, Excel, or JSON files
+# --------------------------------------------------------------
+# 2️⃣ Helper function: load dataset safely
+# --------------------------------------------------------------
+def load_dataset(file_path):
+    """
+    Load CSV, Excel, standard JSON, or newline-delimited JSON.
+    """
+    if file_path.endswith(".csv"):
+        return pd.read_csv(file_path)
+    elif file_path.endswith(".xlsx"):
+        return pd.read_excel(file_path)
+    elif file_path.endswith(".json"):
+        try:
+            return pd.read_json(file_path)  # Standard JSON
+        except ValueError:
+            return pd.read_json(file_path, lines=True)  # JSON Lines
+    else:
+        return None
+
+# --------------------------------------------------------------
+# 3️⃣ Loop through all files
+# --------------------------------------------------------------
+for file in os.listdir(data_folder):
+    file_path = os.path.join(data_folder, file)
+
+    # Only process supported file types
+    if not (file.endswith(".csv") or file.endswith(".xlsx") or file.endswith(".json")):
+        continue
+
+    print(f"\n{'='*90}\n📂 ANALYSING FILE: {file}\n{'='*90}")
+
+    # Load dataset
+    try:
+        df = load_dataset(file_path)
+    except Exception as e:
+        print(f"❌ Error loading {file}: {e}")
+        continue
+
+    # ----------------------------------------------------------
+    # 4️⃣ Convert list-like columns to strings
+    # ----------------------------------------------------------
+    for col in df.select_dtypes(include='object').columns:
+        if df[col].apply(lambda x: isinstance(x, list)).any():
+            df[col] = df[col].apply(lambda x: ", ".join(map(str, x)) if isinstance(x, list) else x)
+
+    # ----------------------------------------------------------
+    # 5️⃣ Column Summary Table
+    # ----------------------------------------------------------
+    col_summary = pd.DataFrame({
+        'Column': df.columns,
+        'Data Type': df.dtypes.astype(str),
+        'Missing Values': df.isnull().sum(),
+        'Non-Missing Values': df.notnull().sum()
+    })
+    col_summary['% Missing'] = (col_summary['Missing Values'] / len(df) * 100).round(2)
+
+    print("📊 COLUMN SUMMARY TABLE")
+    print(col_summary.to_string(index=False))
+    print("\n")
+
+    # ----------------------------------------------------------
+    # 6️⃣ Data Cleaning
+    # ----------------------------------------------------------
+    df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_', regex=False)
+    df = df.drop_duplicates().dropna(how='all')
+
+    for col in df.select_dtypes(include=np.number).columns:
+        if df[col].isnull().any():
+            df[col] = df[col].fillna(df[col].median())
+
+    for col in df.select_dtypes(include='object').columns:
+        if df[col].isnull().any():
+            try:
+                df[col] = df[col].fillna(df[col].mode()[0] if not df[col].mode().empty else "Unknown")
+            except:
+                df[col] = df[col].fillna("Unknown")
+
+    print("✅ Cleaned dataset shape:", df.shape)
+
+    # ----------------------------------------------------------
+    # 7️⃣ Exploratory Data Analysis (EDA)
+    # ----------------------------------------------------------
+    numeric_cols = df.select_dtypes(include=np.number).columns
+    cat_cols = df.select_dtypes(include='object').columns
+
+    if len(numeric_cols) > 0:
+        df[numeric_cols].hist(figsize=(10, 8), bins=20)
+        plt.suptitle(f"Numeric Distributions — {file}", fontsize=14)
+        plt.tight_layout()
+        plt.show()
+
+    if len(numeric_cols) > 1:
+        plt.figure(figsize=(8, 6))
+        sns.heatmap(df[numeric_cols].corr(), annot=True, cmap="coolwarm", fmt=".2f")
+        plt.title(f"Correlation Heatmap — {file}")
+        plt.tight_layout()
+        plt.show()
+
+    if len(cat_cols) > 0:
+        plt.figure(figsize=(8, 4))
+        sns.countplot(data=df, x=cat_cols[0], order=df[cat_cols[0]].value_counts().index)
+        plt.title(f"Distribution of {cat_cols[0]} — {file}")
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.show()
+
+    # ----------------------------------------------------------
+    # 8️⃣ Save cleaned dataset
+    # ----------------------------------------------------------
+    cleaned_file = os.path.join(data_folder, "cleaned_" + os.path.splitext(file)[0] + ".csv")
+    df.to_csv(cleaned_file, index=False)
+    print(f"💾 Cleaned file saved: {cleaned_file}")
+
+    # ----------------------------------------------------------
+    # 9️⃣ Generate ydata-profiling report
+    # ----------------------------------------------------------
+    print("\n🧠 GENERATING YDATA-PROFILING REPORT...")
+    try:
+        profile = ProfileReport(df, title=f"Profile Report - {file}", explorative=True)
+        profile_file = os.path.join(data_folder, f"profile_{os.path.splitext(file)[0]}.html")
+        profile.to_file(profile_file)
+        print(f"📄 YData Profiling report saved: {profile_file}")
+        # Automatically open report
+        webbrowser.open(f"file://{os.path.abspath(profile_file)}")
+    except Exception as e:
+        print(f"⚠️ Could not generate profiling report for {file}: {e}")
+
+print("\n🎯 ANALYSIS COMPLETE — All supported files processed.")
+
+# Additional analysis code continues with country-specific visualizations, outlier detection, and comprehensive statistical analysis...
 
 </code></pre>
                                 </div>

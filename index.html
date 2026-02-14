@@ -77,7 +77,7 @@
 </head>
 <body class="smooth-scroll">
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 nav-blur border-b border-gray-200">
+    <nav class="fixed top-0 z-50 nav-blur border-b border-gray-200">
         <div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <div class="text-2xl font-bold gradient-text">PI</div>
@@ -138,7 +138,7 @@
                     <div>
                         <img src="https://raw.githubusercontent.com/Philip-Irvine/philip-irvine.io/main/images/profile_picture.JPG" 
                              alt="Philip Irvine" 
-                             class="rounded-2xl shadow-2xl w-full max-w-md mx-auto object-cover h-96"
+                             class="rounded-2xl shadow-2xl max-w-md mx-auto object-cover h-96"
                              onerror="console.log('Image failed to load'); this.src='https://via.placeholder.com/400x400/1B4965/FFFFFF?text=Philip+Irvine'; console.log('Fallback loaded');"
                              onload="console.log('Profile image loaded successfully');"
                              loading="lazy">
@@ -297,14 +297,14 @@
                 <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Featured Projects</h2>
                 
                 <!-- Project 1 -->
-                <div class="mb-20 w-full">
-                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden w-full">
+                <div class="mb-20">
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
                         <div class="bg-gradient-to-r from-[#1B4965] to-[#2A9D8F] text-white p-6">
                             <h3 class="text-2xl font-bold mb-2">COVID-19 Mortality Wave Analysis: A Cross-National Time Series Study</h3>
                             <p class="opacity-90">Project Overview</p>
                         </div>
                         
-                        <div class="p-8 w-full">
+                        <div class="p-8">
                             <div class="bg-[#FAFAFA] p-6 rounded-xl mb-6">
                                 <h4 class="text-lg font-semibold mb-4 text-[#1B4965] flex items-center">
                                     <i class="fas fa-cogs mr-3 text-[#2A9D8F]"></i>
@@ -360,7 +360,7 @@
                             </div>
                             </div>
                         
-                        <div class="p-8 w-full">
+                        <div class="p-8">
                             <!-- Key Findings -->
                             <div class="mb-8">
                                 <h4 class="text-xl font-semibold mb-4 text-[#1B4965] flex items-center">
@@ -396,11 +396,11 @@
                                     <i class="fas fa-chart-line mr-3 text-[#2A9D8F]"></i>
                                     Key Graphs
                                 </h4>
-                                <div class="grid md:grid-cols-1 gap-6 w-full">
+                                <div class="grid md:grid-cols-1 gap-6">
                                     <div class="bg-[#FAFAFA] p-6 rounded-xl">
                                         <img src="https://raw.githubusercontent.com/Philip-Irvine/philip-irvine.io/main/images/Reported%20Weekly%20COVID%20Deaths%20in%204%20countries.png" 
                                              alt="Multi-Country Mortality Time Series" 
-                                             class="w-full h-80 object-contain rounded-lg mb-4"
+                                             class="w-full h-48 object-cover rounded-lg mb-4"
                                              onerror="this.src='https://via.placeholder.com/400x250/1B4965/FFFFFF?text=COVID+Mortality+Graph'; console.log('COVID graph fallback loaded');"
                                              loading="lazy">
                                         <h5 class="font-semibold mb-2">Smoothed weekly deaths per 100k population (four countries, same timeline)</h5>
@@ -409,7 +409,7 @@
                                     <div class="bg-[#FAFAFA] p-6 rounded-xl">
                                         <img src="https://raw.githubusercontent.com/Philip-Irvine/philip-irvine.io/main/images/worldwide_covid_deaths_per100k.png" 
                                              alt="Global COVID-19 Mortality Wave Analysis" 
-                                             class="w-full h-80 object-contain rounded-lg mb-4"
+                                             class="w-full h-48 object-cover rounded-lg mb-4"
                                              onerror="this.src='https://via.placeholder.com/400x250/1B4965/FFFFFF?text=Global+COVID+Graph'; console.log('Global COVID graph fallback loaded');"
                                              loading="lazy">
                                         <h5 class="font-semibold mb-2">Global COVID-19 Mortality Wave Analysis</h5>
@@ -429,7 +429,7 @@
                                     <i class="fas fa-code mr-3 text-[#2A9D8F]"></i>
                                     Python Code
                                 </h4>
-                                <div class="bg-gray-900 text-gray-100 p-6 rounded-xl overflow-x-auto max-h-96 w-full">
+                                <div class="bg-gray-900 text-gray-100 p-6 rounded-xl overflow-x-auto max-h-96">
                                     <pre class="text-sm"><code class="language-python">#!/usr/bin/env python
 # coding: utf-8
 # In[2]:
@@ -1320,14 +1320,14 @@ plt.show()
                 </div>
 
                 <!-- Project 2 -->
-                <div class="mb-20 w-full">
-                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden w-full">
+                <div class="mb-20">
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
                         <div class="bg-gradient-to-r from-[#1B4965] to-[#2A9D8F] text-white p-6">
                             <h3 class="text-2xl font-bold mb-2">Supply Chain Optimization System</h3>
                             <p class="opacity-90">AI-driven inventory management and demand forecasting</p>
                         </div>
                         
-                        <div class="p-8 w-full">
+                        <div class="p-8">
                             <!-- Key Findings -->
                             <div class="mb-8">
                                 <h4 class="text-xl font-semibold mb-4 text-[#1B4965] flex items-center">
@@ -1362,14 +1362,14 @@ plt.show()
                                     <div class="bg-[#FAFAFA] p-6 rounded-xl">
                                         <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400&h=250&fit=crop" 
                                              alt="Demand Forecasting" 
-                                             class="w-full h-80 object-contain rounded-lg mb-4">
+                                             class="w-full h-48 object-cover rounded-lg mb-4">
                                         <h5 class="font-semibold mb-2">Demand Forecasting</h5>
                                         <p class="text-gray-600 text-sm">Time series analysis with seasonal decomposition</p>
                                     </div>
                                     <div class="bg-[#FAFAFA] p-6 rounded-xl">
                                         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop" 
                                              alt="Inventory Optimization" 
-                                             class="w-full h-80 object-contain rounded-lg mb-4">
+                                             class="w-full h-48 object-cover rounded-lg mb-4">
                                         <h5 class="font-semibold mb-2">Inventory Optimization</h5>
                                         <p class="text-gray-600 text-sm">Optimal stock levels across multiple warehouses</p>
                                     </div>
@@ -1382,7 +1382,7 @@ plt.show()
                                     <i class="fas fa-code mr-3 text-[#2A9D8F]"></i>
                                     Python Code
                                 </h4>
-                                <div class="bg-gray-900 text-gray-100 p-6 rounded-xl overflow-x-auto max-h-96 w-full">
+                                <div class="bg-gray-900 text-gray-100 p-6 rounded-xl overflow-x-auto max-h-96">
                                     <pre class="text-sm"><code class="language-python">#!/usr/bin/env python
 # coding: utf-8
 
@@ -1562,14 +1562,14 @@ print(f"Reorder Point: {results['reorder_point']:.0f} units")</code></pre>
                 </div>
 
                 <!-- Project 3 -->
-                <div class="mb-20 w-full">
-                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden w-full">
+                <div class="mb-20">
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
                         <div class="bg-gradient-to-r from-[#1B4965] to-[#2A9D8F] text-white p-6">
                             <h3 class="text-2xl font-bold mb-2">Customer Churn Prediction Model</h3>
                             <p class="opacity-90">Machine learning model for customer retention strategies</p>
                         </div>
                         
-                        <div class="p-8 w-full">
+                        <div class="p-8">
                             <!-- Key Findings -->
                             <div class="mb-8">
                                 <h4 class="text-xl font-semibold mb-4 text-[#1B4965] flex items-center">
@@ -1604,14 +1604,14 @@ print(f"Reorder Point: {results['reorder_point']:.0f} units")</code></pre>
                                     <div class="bg-[#FAFAFA] p-6 rounded-xl">
                                         <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop" 
                                              alt="Feature Importance" 
-                                             class="w-full h-80 object-contain rounded-lg mb-4">
+                                             class="w-full h-48 object-cover rounded-lg mb-4">
                                         <h5 class="font-semibold mb-2">Feature Importance Analysis</h5>
                                         <p class="text-gray-600 text-sm">Key predictors of customer churn behavior</p>
                                     </div>
                                     <div class="bg-[#FAFAFA] p-6 rounded-xl">
                                         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop" 
                                              alt="ROC Curve" 
-                                             class="w-full h-80 object-contain rounded-lg mb-4">
+                                             class="w-full h-48 object-cover rounded-lg mb-4">
                                         <h5 class="font-semibold mb-2">Model Performance Metrics</h5>
                                         <p class="text-gray-600 text-sm">ROC curve and confusion matrix analysis</p>
                                     </div>
@@ -1624,7 +1624,7 @@ print(f"Reorder Point: {results['reorder_point']:.0f} units")</code></pre>
                                     <i class="fas fa-code mr-3 text-[#2A9D8F]"></i>
                                     Python Code
                                 </h4>
-                                <div class="bg-gray-900 text-gray-100 p-6 rounded-xl overflow-x-auto max-h-96 w-full">
+                                <div class="bg-gray-900 text-gray-100 p-6 rounded-xl overflow-x-auto max-h-96">
                                     <pre class="text-sm"><code class="language-python">#!/usr/bin/env python
 # coding: utf-8
 

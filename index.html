@@ -407,21 +407,11 @@
                                         <p class="text-gray-600 text-sm">Smoothed mortality per 100k reveals recurrent wave structures in European nations, contrasted with delayed and compressed mortality spikes in New Zealand </p>
                                     </div>
                                     <div class="bg-[#FAFAFA] p-6 rounded-xl">
-                                        <div class="relative w-full h-48 bg-gray-100 rounded-lg mb-4 flex items-center justify-center">
-                                            <img src="https://raw.githubusercontent.com/Philip-Irvine/philip-irvine.io/main/images/worldwide_covid_deaths_per100k.png" 
-                                                 alt="Global COVID-19 Mortality Wave Analysis" 
-                                                 class="absolute inset-0 w-full h-full object-cover rounded-lg"
-                                                 style="display: block;"
-                                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'; console.log('Worldwide COVID graph failed - showing fallback');"
-                                                 loading="lazy">
-                                            <div class="absolute inset-0 w-full h-full bg-[#1B4965] rounded-lg flex items-center justify-center text-white text-center p-4" style="display: none;">
-                                                <div>
-                                                    <i class="fas fa-chart-line text-3xl mb-2"></i>
-                                                    <p class="text-sm font-semibold">Global COVID-19 Mortality</p>
-                                                    <p class="text-xs">Loading graph...</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <img src="https://raw.githubusercontent.com/Philip-Irvine/philip-irvine.io/main/images/worldwide_covid_deaths_per100k.png" 
+                                             alt="Global COVID-19 Mortality Wave Analysis" 
+                                             class="w-full h-48 object-cover rounded-lg mb-4"
+                                             onerror="this.src='https://via.placeholder.com/400x250/1B4965/FFFFFF?text=Global+COVID+Graph'; console.log('Global COVID graph fallback loaded');"
+                                             loading="lazy">
                                         <h5 class="font-semibold mb-2">Global COVID-19 Mortality Wave Analysis</h5>
                                         <p class="text-gray-600 text-sm">This time-series visualisation presents global weekly COVID-19 deaths per 100,000 population from early 2020 through mid-2022.
                                             Using population-normalised mortality data and temporal smoothing, the graph reveals cyclical structure of pandemic across successive global waves.

@@ -1,4 +1,7 @@
 
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1339,8 +1342,8 @@ plt.show()
                 <div class="mb-20">
                     <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
                         <div class="bg-gradient-to-r from-[#1B4965] to-[#2A9D8F] text-white p-6">
-                            <h3 class="text-2xl font-bold mb-2">Deep learning for Melanom classification </h3>
-                            <p class="opacity-90">Building and comparing two neural networks to detect melanoma from dermatoscopic images.</p>
+                            <h3 class="text-2xl font-bold mb-2">Supply Chain Optimization System</h3>
+                            <p class="opacity-90">AI-driven inventory management and demand forecasting</p>
                         </div>
                         
                         <div class="p-8">
@@ -1354,15 +1357,15 @@ plt.show()
                                     <ul class="space-y-3">
                                         <li class="flex items-start">
                                             <i class="fas fa-check-circle text-[#2A9D8F] mt-1 mr-3"></i>
-                                            <span class="text-gray-700">ResNet‑50 achieved the strongest overall performance (AUC ≈ 0.825), while TinyVGG delivered higher melanoma sensitivity.</span>
+                                            <span class="text-gray-700">Reduced inventory costs by 28% through predictive ordering</span>
                                         </li>
                                         <li class="flex items-start">
                                             <i class="fas fa-check-circle text-[#2A9D8F] mt-1 mr-3"></i>
-                                            <span class="text-gray-700">The models showed complementary strengths but also clinically important misclassifications, highlighting the need for external validation, calibration, and targeted improvements.</span>
+                                            <span class="text-gray-700">Improved order fulfillment rate to 98.5%</span>
                                         </li>
                                         <li class="flex items-start">
                                             <i class="fas fa-check-circle text-[#2A9D8F] mt-1 mr-3"></i>
-                                            <span class="text-gray-700">Both models outperformed a novice human baseline, demonstrating that they learned meaningful dermatoscopic patterns.</span>
+                                            <span class="text-gray-700">Decreased stockouts by 67%</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -1884,6 +1887,28 @@ print(importance.head())</code></pre>
                             </div>
                         </div>
                         <div>
+                            <form id="contact-form" class="space-y-6">
+                                <div>
+                                    <label for="name" class="block text-gray-700 font-medium mb-2">Name</label>
+                                    <input type="text" id="name" name="name" required
+                                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1B4965] focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                                    <input type="email" id="email" name="email" required
+                                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1B4965] focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
+                                    <textarea id="message" name="message" rows="5" required
+                                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1B4965] focus:border-transparent"></textarea>
+                                </div>
+                                <button type="submit" 
+                                        class="w-full bg-[#1B4965] text-white py-3 rounded-lg font-semibold hover:bg-[#2A9D8F] transition-colors">
+                                    Send Message
+                                </button>
+                            </form>
+                            <div id="form-message" class="mt-4 hidden"></div>
                         </div>
                     </div>
                 </div>

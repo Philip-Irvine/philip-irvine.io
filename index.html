@@ -1347,49 +1347,73 @@ plt.show()
                             <div class="mb-8">
                                 <h4 class="text-xl font-semibold mb-4 text-[#1B4965] flex items-center">
                                     <i class="fas fa-lightbulb mr-3 text-[#2A9D8F]"></i>
-                                    Key Findings
-                                </h4>
-                                <div class="bg-[#FAFAFA] p-6 rounded-xl">
-                                    <ul class="space-y-3">
-                                        <li class="flex items-start">
-                                            <i class="fas fa-check-circle text-[#2A9D8F] mt-1 mr-3"></i>
-                                            <span class="text-gray-700">Reduced inventory costs by 28% through predictive ordering</span>
-                                        </li>
-                                        <li class="flex items-start">
-                                            <i class="fas fa-check-circle text-[#2A9D8F] mt-1 mr-3"></i>
-                                            <span class="text-gray-700">Improved order fulfillment rate to 98.5%</span>
-                                        </li>
-                                        <li class="flex items-start">
-                                            <i class="fas fa-check-circle text-[#2A9D8F] mt-1 mr-3"></i>
-                                            <span class="text-gray-700">Decreased stockouts by 67%</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <!-- Key Graphs -->
-                            <div class="mb-8">
-                                <h4 class="text-xl font-semibold mb-4 text-[#1B4965] flex items-center">
-                                    <i class="fas fa-chart-line mr-3 text-[#2A9D8F]"></i>
-                                    Key Graphs
-                                </h4>
-                                <div class="grid md:grid-cols-1 gap-6">
-                                    <div class="bg-[#FAFAFA] p-6 rounded-xl">
-                                        <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400&h=250&fit=crop" 
-                                             alt="Demand Forecasting" 
-                                             class="w-full h-96 object-contain rounded-lg mb-4">
-                                        <h5 class="font-semibold mb-2">Demand Forecasting</h5>
-                                        <p class="text-gray-600 text-sm">Time series analysis with seasonal decomposition</p>
-                                    </div>
-                                    <div class="bg-[#FAFAFA] p-6 rounded-xl">
-                                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop" 
-                                             alt="Inventory Optimization" 
-                                             class="w-full h-96 object-contain rounded-lg mb-4">
-                                        <h5 class="font-semibold mb-2">Inventory Optimization</h5>
-                                        <p class="text-gray-600 text-sm">Optimal stock levels across multiple warehouses</p>
-                                    </div>
-                                </div>
-                            </div>
+                                    <section id="melanoma-key-findings">
+  <h1>Key Findings from the Melanoma Classification Project</h1>
+
+  <h2>Model Comparison</h2>
+  <ul>
+    <li>Two models were evaluated: <strong>TinyVGG</strong> and <strong>ResNet-50</strong> for melanoma vs benign keratosis classification.</li>
+    <li>Both models performed above chance and outperformed a simple human baseline.</li>
+  </ul>
+
+  <h2>Dataset</h2>
+  <ul>
+    <li>Used a <strong>2,212-image</strong> subset of the HAM10000 dermatoscopic dataset.</li>
+    <li>Classes were nearly balanced: <strong>1099 bkl</strong> and <strong>1113 mel</strong>.</li>
+  </ul>
+
+  <h2>TinyVGG Findings</h2>
+  <ul>
+    <li>Overall accuracy: <strong>0.73</strong>; AUC: <strong>0.79</strong>.</li>
+    <li>Showed <strong>higher melanoma recall</strong> (more sensitive to melanoma).</li>
+    <li>Misclassified a notable number of melanomas as benign, leading to clinically important <strong>false negatives</strong>.</li>
+    <li>Training and test curves indicated <strong>stable learning</strong> without major overfitting.</li>
+  </ul>
+
+  <h2>ResNet-50 Findings</h2>
+  <ul>
+    <li>Overall accuracy: <strong>0.75</strong>; AUC: <strong>≈ 0.825</strong>.</li>
+    <li>More <strong>precise</strong> and slightly more <strong>stable</strong> overall than TinyVGG.</li>
+    <li>Showed clear <strong>overfitting</strong>, with around a 9% gap between training and test accuracy.</li>
+    <li>Transfer learning improved generalisation on a relatively small medical image dataset.</li>
+  </ul>
+
+  <h2>Complementary Error Profiles</h2>
+  <ul>
+    <li><strong>TinyVGG</strong>: better <strong>sensitivity</strong> (higher melanoma recall).</li>
+    <li><strong>ResNet-50</strong>: better <strong>precision</strong> and overall stability.</li>
+    <li>Their complementary behaviour suggests that <strong>ensembling</strong> or <strong>threshold tuning</strong> could preserve sensitivity while improving precision.</li>
+  </ul>
+
+  <h2>Human Baseline</h2>
+  <ul>
+    <li>A small 3-shot human trial achieved <strong>57% accuracy</strong> on 59 images.</li>
+    <li>This baseline reflects a minimally trained reader and is an <strong>illustrative comparison</strong>, not a proxy for clinician performance.</li>
+  </ul>
+
+  <h2>Technical Insights</h2>
+  <ul>
+    <li><strong>Transfer learning</strong> significantly boosts performance on limited medical datasets.</li>
+    <li><strong>Fine-tuning deeper layers</strong> improves performance stability compared with freezing the backbone.</li>
+    <li><strong>Confusion matrices</strong> reveal clinically important misclassification patterns, especially melanoma errors.</li>
+    <li><strong>AUC</strong> values show both models perform well above chance but are not yet at clinical-grade reliability.</li>
+  </ul>
+
+  <h2>Limitations</h2>
+  <ul>
+    <li>Modest dataset size.</li>
+    <li>No demographic subgroup analysis.</li>
+    <li>No external validation or multicentre testing.</li>
+  </ul>
+
+  <h2>Recommended Next Steps</h2>
+  <ul>
+    <li>Conduct <strong>external multicentre validation</strong>.</li>
+    <li>Perform <strong>subgroup fairness checks</strong> (e.g., by demographics).</li>
+    <li>Use <strong>targeted augmentation</strong> or <strong>class reweighting</strong> to improve performance on challenging classes.</li>
+    <li>Apply <strong>explainability tools</strong> and systematic error analysis to understand model failures.</li>
+  </ul>
+</section>
                             
                             <!-- Python Code -->
                             <div>
